@@ -38,7 +38,14 @@ def example_magic_widget(img_layer: "napari.layers.Image",
     # assuming the layer is a stack
     I = np.array(img_layer.data[0]).astype(np.int32)
     J = np.array(img_layer.data[1]).astype(np.int32)
-    x,y,u,v = simple_piv(I,J, plot=False)
+
+    if I.ndim > 2:
+        # apparently RGB, let's take G 
+        I = I[:,:,1].squeeze()
+        J = J[:,:,1].squeeze()
+    
+
+    x,y,u,v = simple_piv(I,J, plot=False);
     # sample vector image-like data
     n = np.prod(x.shape)
     # n x m grid of slanted lines
@@ -46,13 +53,42 @@ def example_magic_widget(img_layer: "napari.layers.Image",
     pos = np.zeros(shape=(n, 2, 2), dtype=np.float32)
 
     # assign projections for each vector
-    pos[:, 0, 0] = x.flatten()
-    pos[:, 0, 1] = y.flatten()
-    pos[:, 1, 0] = x.flatten() + u.flatten()
-    pos[:, 1, 1] = y.flatten() + v.flatten()
+    # note the coordinate definitions:
+    # x = columns, y = rows
+    pos[:, 0, 1] = x.flatten()
+    pos[:, 0, 0] = y.flatten()
+    pos[:, 1, 1] = u.flatten()
+    pos[:, 1, 0] = v.flatten()
+
+    
+    # make the angle feature, range 0-2pi
+    velocity = np.sqrt(u.flatten()**2 + v.flatten()**2)
+
+    # create a feature that is true for all angles  > pi
+    angle = np.arctan2(v.flatten(),u.flatten())
+
+    # create the features dictionary.
+    features = {
+        'velocity': velocity,
+        'angle': angle,
+    }
 
     # add the vectors
-    vect = viewer.add_vectors(pos, edge_width=0.2, length=2.5)
+    layer = viewer.add_vectors(
+        pos,
+        edge_width=1.5,
+        features=features,
+        edge_color='velocity',
+        edge_colormap='husl',
+        name='vectors',
+        length = 1
+    )
+
+    # set the edge color mode to colormap
+    layer.edge_color_mode = 'colormap'
+
+    # add the vectors a bit longer to show the direction
+    vect = viewer.add_vectors(pos, edge_width=0.8, length=1.1, name = 'direction')
 
 
 

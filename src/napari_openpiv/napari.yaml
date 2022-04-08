@@ -39,10 +39,10 @@ contributions:
       display_name: napari OpenPIV
       key: unique_id.1 
   widgets:
-    - command: napari-openpiv.make_qwidget
-      display_name: Example QWidget
+    # - command: napari-openpiv.make_qwidget
+    #   display_name: Example QWidget
     - command: napari-openpiv.make_magic_widget
-      display_name: Example Magic Widget
-    - command: napari-openpiv.make_func_widget
-      autogenerate: true
-      display_name: Example Function Widget 
+      display_name: OpenPIV widget
+    # - command: napari-openpiv.make_func_widget
+    #   autogenerate: true
+    #   display_name: Example Function Widget 
