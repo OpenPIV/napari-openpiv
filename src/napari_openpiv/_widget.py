@@ -45,20 +45,23 @@ def example_magic_widget(img_layer: "napari.layers.Image",
         J = J[:,:,1].squeeze()
     
 
-    x,y,u,v = simple_piv(I,J, plot=False);
+    x,y,u,v,s2n = simple_piv(I, J, plot=False)
     # sample vector image-like data
     n = np.prod(x.shape)
     # n x m grid of slanted lines
     # random data on the open interval (-1, 1)
     pos = np.zeros(shape=(n, 2, 2), dtype=np.float32)
 
+    u = np.nan_to_num(u)
+    v = np.nan_to_num(v)
+
     # assign projections for each vector
     # note the coordinate definitions:
     # x = columns, y = rows
     pos[:, 0, 1] = x.flatten()
-    pos[:, 0, 0] = y.flatten()
+    pos[:, 0, 0] = np.max(y.flatten()) - y.flatten()  # napari shows in image coordinates
     pos[:, 1, 1] = u.flatten()
-    pos[:, 1, 0] = v.flatten()
+    pos[:, 1, 0] = -1*v.flatten() # napari shows in image coordinates
 
     
     # make the angle feature, range 0-2pi
@@ -74,21 +77,21 @@ def example_magic_widget(img_layer: "napari.layers.Image",
     }
 
     # add the vectors
-    layer = viewer.add_vectors(
+    vectors = viewer.add_vectors(
         pos,
         edge_width=1.5,
         features=features,
         edge_color='velocity',
         edge_colormap='husl',
+        edge_color_mode='colormap',
+        vector_style = 'arrow',
         name='vectors',
-        length = 1
+        blending='additive',
+        length = 2
     )
 
-    # set the edge color mode to colormap
-    layer.edge_color_mode = 'colormap'
-
-    # add the vectors a bit longer to show the direction
-    vect = viewer.add_vectors(pos, edge_width=0.8, length=1.1, name = 'direction')
+    # # add the vectors a bit longer to show the direction
+    # vect = viewer.add_vectors(pos, edge_width=0.8, length=1.1, name = 'direction')
 
 
 
