@@ -81,14 +81,17 @@ def example_magic_widget(img_layer: "napari.layers.Image",
         pos,
         edge_width=1.5,
         features=features,
-        edge_color='velocity',
+        edge_color=velocity,
         edge_colormap='husl',
-        edge_color_mode='colormap',
         vector_style = 'arrow',
         name='vectors',
         blending='additive',
         length = 2
     )
+
+    # set the edge color mode to colormap
+    vectors.edge_color_mode = 'colormap'
+    # vectors.edge_property = 'velocity'
 
     # # add the vectors a bit longer to show the direction
     # vect = viewer.add_vectors(pos, edge_width=0.8, length=1.1, name = 'direction')
