@@ -6,7 +6,7 @@ import numpy as np
 def test_example_q_widget(make_napari_viewer, capsys):
     # make viewer and add an image layer using our fixture
     viewer = make_napari_viewer()
-    viewer.add_image(np.random.random((100, 100)))
+    viewer.add_image(np.random.random((2, 100, 100)))
 
     # create our widget, passing in the viewer
     my_widget = ExampleQWidget(viewer)
@@ -20,7 +20,7 @@ def test_example_q_widget(make_napari_viewer, capsys):
     
 def test_example_magic_widget(make_napari_viewer, capsys):
     viewer = make_napari_viewer()
-    layer = viewer.add_image(np.random.random((100, 100)))
+    layer = viewer.add_image(np.random.random((2, 100, 100)))
 
     # this time, our widget will be a MagicFactory or FunctionGui instance
     my_widget = example_magic_widget()
