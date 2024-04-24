@@ -2,6 +2,51 @@
 requires = ["setuptools", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "napari-openpiv"
+version = "0.1.0"  # Replace with your desired version or use setuptools_scm
+authors = [
+    { name = "Alex Liberzon", email = "alex.liberzon@gmail.com" },
+]
+description = "OpenPIV Python plugin to use with napari"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Framework :: napari",
+    "Topic :: Software Development :: Testing",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+keywords = ["napari", "OpenPIV", "image-analysis"]  # Add relevant keywords
+dependencies = [
+    "numpy>=1.23", 
+    "magicgui>=0.6",
+    "qtpy>=2.2",
+    "openpiv>=0.22"
+]
+
+[project.entry-points."napari.manifest"]
+napari-openpiv = "napari_openpiv:napari.yaml"
+
+
+[project.optional-dependencies]
+testing = [
+    "numpy",
+    "openpiv",
+    "tox",
+    "pytest",
+    "pytest-cov",
+    "pytest-qt",
+    "napari",
+    "pyqt5",
+]
 
 [tool.setuptools_scm]
 write_to = "src/napari_openpiv/_version.py"
@@ -11,4 +56,10 @@ line-length = 79
 
 [tool.isort]
 profile = "black"
-line_length = 79
+line-length = 79
+
+[tool.flit.module]
+name = "napari_openpiv"
+
+[tool.flit.metadata]
+module = "napari_openpiv"
