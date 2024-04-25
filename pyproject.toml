@@ -29,7 +29,7 @@ dependencies = [
     "numpy>=1.23", 
     "magicgui>=0.6",
     "qtpy>=2.2",
-    "openpiv>=0.22",
+    "openpiv>=0.25",
     "napari>=0.4.19",
     "pyqt5==5.15.10", 
     "pyqt5-qt5==5.15.2",
