@@ -31,8 +31,8 @@ dependencies = [
     "qtpy>=2.2",
     "openpiv>=0.22",
     "napari>=0.4.19",
-    pyqt5 = "=5.15.10", 
-    pyqt5-qt5 = "=5.15.2",
+    "pyqt5==5.15.10", 
+    "pyqt5-qt5==5.15.2",
 ]
 
 [project.entry-points."napari.manifest"]
