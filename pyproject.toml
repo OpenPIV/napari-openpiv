@@ -29,8 +29,8 @@ dependencies = [
     "numpy>=1.23", 
     "magicgui>=0.6",
     "qtpy>=2.2",
-    "openpiv>=0.22"
-    "napari"
+    "openpiv>=0.22",
+    "napari>=0.4.19",
 ]
 
 [project.entry-points."napari.manifest"]
