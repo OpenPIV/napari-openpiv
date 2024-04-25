@@ -46,9 +46,7 @@ testing = [
     "tox",
     "pytest",
     "pytest-cov",
-    "pytest-qt",
-    "napari",
-    "pyqt5",
+    "pytest-qt"
 ]
 
 [tool.setuptools_scm]
